@@ -1,0 +1,81 @@
+# ── Global ──────────────────────────────────────────────────
+global:
+  imageRegistry: ""        # e.g. your ECR URL in Phase 3
+
+# ── Frontend ────────────────────────────────────────────────
+frontend:
+  image:
+    repository: k8s-frontend
+    tag: "v1"
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+  port: 80
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+
+# ── Backend ─────────────────────────────────────────────────
+backend:
+  image:
+    repository: k8s-backend
+    tag: "v1"
+    pullPolicy: IfNotPresent
+  replicaCount: 2
+  port: 5000
+  service:
+    type: ClusterIP
+    port: 5000
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+  hpa:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 70
+
+# ── Database ─────────────────────────────────────────────────
+database:
+  image:
+    repository: k8s-db
+    tag: "v1"
+    pullPolicy: IfNotPresent
+  port: 5432
+  name: taskdb
+  user: postgres
+  # password comes from Secret — never put real password here
+  storage: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# ── Ingress ──────────────────────────────────────────────────
+ingress:
+  enabled: true
+  host: taskmanager.local
+  annotations:
+    kubernetes.io/ingress.class: nginx
+
+# ── Secrets (override at deploy time, never commit real values) ──
+secrets:
+  dbPassword: "devpassword123"
