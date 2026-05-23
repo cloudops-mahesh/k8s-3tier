@@ -5,9 +5,9 @@ global:
 # ── Frontend ────────────────────────────────────────────────
 frontend:
   image:
-    repository: k8s-frontend
+    repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-frontend
     tag: "v1"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 2
   port: 80
   service:
@@ -21,17 +21,15 @@ frontend:
       cpu: 200m
       memory: 128Mi
   hpa:
-    enabled: true
     minReplicas: 2
     maxReplicas: 10
     targetCPUUtilizationPercentage: 70
 
-# ── Backend ─────────────────────────────────────────────────
 backend:
   image:
-    repository: k8s-backend
+    repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-backend
     tag: "v1"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   replicaCount: 2
   port: 5000
   service:
@@ -45,22 +43,19 @@ backend:
       cpu: 500m
       memory: 256Mi
   hpa:
-    enabled: true
     minReplicas: 2
     maxReplicas: 8
     targetCPUUtilizationPercentage: 70
 
-# ── Database ─────────────────────────────────────────────────
 database:
   image:
-    repository: k8s-db
+    repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-db
     tag: "v1"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
   port: 5432
   name: taskdb
   user: postgres
-  # password comes from Secret — never put real password here
-  storage: 1Gi
+  storage: 5Gi
   resources:
     requests:
       cpu: 100m
@@ -69,13 +64,9 @@ database:
       cpu: 500m
       memory: 512Mi
 
-# ── Ingress ──────────────────────────────────────────────────
 ingress:
   enabled: true
   host: taskmanager.local
-  annotations:
-    kubernetes.io/ingress.class: nginx
 
-# ── Secrets (override at deploy time, never commit real values) ──
 secrets:
   dbPassword: "devpassword123"

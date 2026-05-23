@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "http://a51ff704ed6924bcb9e13afda9fdba5a-af68bfbbfc65fd20.elb.us-east-1.amazonaws.com/api";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
