@@ -75,7 +75,7 @@ export default function App() {
         ))}
       </ul>
 
-      <footer><p>React → Node.js → PostgreSQL · K8s Project · CI/CD V3 </p></footer>
+      <footer><p>React → Node.js → PostgreSQL · K8s Project · CI/CD V4 </p></footer>
 
       <style>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
