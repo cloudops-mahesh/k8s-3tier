@@ -6,7 +6,7 @@ global:
 frontend:
   image:
     repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-frontend
-    tag: "5f0e7c40e03b07fe9387b9093904ffb8661517cc"
+    tag: "30477319be828cf2ffcf8bcaca97471152d4f15a"
     pullPolicy: Always
   replicaCount: 2
   port: 80
@@ -28,7 +28,7 @@ frontend:
 backend:
   image:
     repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-backend
-    tag: "5f0e7c40e03b07fe9387b9093904ffb8661517cc"
+    tag: "30477319be828cf2ffcf8bcaca97471152d4f15a"
     pullPolicy: Always
   replicaCount: 2
   port: 5000
@@ -50,7 +50,7 @@ backend:
 database:
   image:
     repository: 751530150420.dkr.ecr.us-east-1.amazonaws.com/k8s-db
-    tag: "5f0e7c40e03b07fe9387b9093904ffb8661517cc"
+    tag: "30477319be828cf2ffcf8bcaca97471152d4f15a"
     pullPolicy: Always
   port: 5432
   name: taskdb
